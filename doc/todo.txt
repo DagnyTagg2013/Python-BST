@@ -1,0 +1,7 @@
+
+1) implement in-order traversal with sort
+
+2) implement DFS
+
+3) research self-balancing/rotation trees
+

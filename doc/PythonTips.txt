@@ -1,0 +1,126 @@
+
+0) Interactive Python -- BST implementation
+- http://interactivepython.org/runestone/static/pythonds/Trees/SearchTreeImplementation.html
+
+1) self as ALWAYs first argument to methods; to BIND object data to floating function
+- implicit first parameter on call with object on LHS
+
+2) Understanding Python Iterables and Iterators
+http://www.shutupandship.com/2012/01/understanding-python-iterables-and.html
+
+a) to support syntax:
+for i in container: do something
+
+b) required method overrides to support this:
+When Python executes the for loop, it first invokes the __iter__() method of the container to get the iterator of the container.
+It then repeatedly calls the next() method (__next__() method in Python 3.x) of the iterator
+until the iterator raises a StopIteration exception. Once the exception is raised, the for loop ends.
+
+c) iterable NOT equal to iterator
+* Iterable - A container is said to be iterable if it has the __iter__ method defined; which returns an Iterator object
+* Iterator - An iterator is an object that supports the iterator protocol which basically means that the following two methods need to be defined.
+It has an __iter__ method defined which returns ITSELF
+It has a next() method defined (or __next__ in Python 3.x) which returns the next value every time the next method is invoked on it.
+
+This supports the following calling syntax:
+
+a = MyList([1, 2, 3, 4])
+ia = iter(a)
+print 'type(a): %r, type(ia): %r' %(type(a), type(ia))
+for i in a:
+    print i,
+
+d) example of iterator implementation for BST
+https://github.com/kamyu104/LeetCode/blob/master/Python/binary-search-tree-iterator.py
+
+3) Iterators, Generators, Closures, Decorators
+http://pymbook.readthedocs.org/en/latest/igd.html
+
+Python provides us with a very powerful function to use when creating an iterator.
+The function is called yield. yield is similar to return in that it returns a value to the caller.
+However, yield also takes the additional step of FREEZING the STATE of the function so that
+the next time the function is called it continues executing from the exact point it left off earlier.
+Functions that create objects that can be iterated are called generator functions.
+
+4) None in Python instead of Null in other languages
+http://stackoverflow.com/questions/3289601/null-object-in-python
+- use None and to test against; use 'is None' instead of '=='
+
+5) New Types Creation; and necessary overrides
+https://docs.python.org/2/library/stdtypes.html
+
+6) How do I remove the first item from a Python List?
+
+- StackOverflow
+
+i)  front = alist.pop(0)
+   # returns front of list
+   # default is popping from END of list
+   # modifies original
+
+ii) del alist[0]
+   # modifies original, does NOT return first item
+
+iii) front = alist[0]
+     alist = alist[1:]
+     # creates a new list without the first item; original is discarded
+
+iv) collections.deque is MORE performant
+    - than LIST which operates @ O(n) for INSERT / REMOVE from FRONT; which requires
+    changing size and position of data within the list
+    - can be used BOUNDED @ maxlen; to track only LATEST eg POOLs of data
+    - pop() from END; popleft() from FRONT; remove(VALUE) from wherever value exists
+
+7) *** Python high-performance collections in collections.py!!!
+
+8) Best way to check if a list is empty in Python
+
+if not aList:
+    print "List is empty"
+
+#NOTE:  this doesn't distinguish between None and []; BUT is most Pythonic
+
+9) Python function returns
+
+- returns None by default
+- no return-type specified in signature
+- on recursing, and returning; must remember RETURN on recursion call!
+
+10) isBST or NOT
+http://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
+
+11) private vs public variable accessors in Python
+
+- use __ to prefix vars and methods to be private, and not-importable into other namespaces
+
+http://stackoverflow.com/questions/1641219/does-python-have-private-variables-in-classes
+
+12) Python vs Java
+
+http://anh.cs.luc.edu/331/notes/JavaVsPython.html
+
+- indentation enforced even for comments,
+  with semicolons and parentheses optional
+- tuples vs lists
+- maps vs dicts
+- equals operator
+- new operator
+- yield, generators
+- private, public accessors
+- for comprehension syntax
+- map syntax
+- implicit this vs explicit self
+
+13) Handling Exceptions in Python
+
+https://wiki.python.org/moin/HandlingExceptions
+
+http://stackoverflow.com/questions/9555133/e-printstacktrace-equivalent-in-python
+
+14) Yield vs Return in Python
+
+http://www.geeksforgeeks.org/use-yield-keyword-instead-return-keyword-python/
+
+
+
+

@@ -1,0 +1,84 @@
+
+*** GRAPHICS:
+
+http://www.dgp.toronto.edu/people/JamesStewart/378notes/15bst/
+
+http://interactivepython.org/runestone/static/pythonds/index.html
+
+0) APPLICATIONS/MOTIVATION
+
+- CACHE 100 cheapest items seen; as pricing STREAM comes in on 1 MILLION items
+(PRIORITY QUEUE of capacity 100; MIN-HEAP by PRICE)
+
+- LOOKUP Table
+
+1) Big Oh Cheatsheet
+http://bigocheatsheet.com/
+
+* significant divergence of N2 vs NlogN at N = 20 items
+
+* DO BETTER than caching with a SORTED LIST:
+- Insert O(N) for N items is:  O(Nexp2)
+even though removing MIN is O(1)
+- Lookup is O(N)
+
+*** NOT as efficient for lookup as HASHTABLE: with O(1) retrieval time; but can be BALANCED for O(logN) retrieval
+HASHTABLE uses probabilistic UNIFORM DIST HASH FUNCTION to distribute items to index on contigous ARRAY; then CHAINS within buckets for COLLISIONS
+
+*** IS one of the most efficient methods of INCREMENTAL sorting, adding items to a list over time while keeping the list sorted at all times.
+    BUT if CACHE is needed; then cost to maintain cache ADD + EVICT:  O(NlogN) to O(Nexp2)
+
+*** NOT for BATCH sorting; as O(Nexp2) worst case to build; O(N) to traverse inorder.  NET O(Nexp2)
+
+*** NOT as efficient in storage as HEAP, as additional storage for left/right pointers, and NOT contiguous
+
+2) BST Property:
+
+- ROOT
+- all keys within LEFT subtree are LESS than key on root
+- all keys within RIGHT subtree are GREATER than key on root
+= holds for roots of each subtree, recursively
+- TODO:  ASSUMEs no DUPLICATEs (check for EQUALs on INSERT, and throw EXCEPTION)
+
+CAVEAT:  NOT sufficient to check that within ONE given level; this property holds, for successive levels
+This instead must hold ACROSS ALL levels for left and right subtrees:
+eg the following is not a BST since 4 > 3.
+
+            3
+           / \
+          2   5
+         / \
+        1   4
+
+SO MAX key in left subtree is < root
+AND MIN key in right subtree is > root
+
+
+3) BASIC OPERATIONS
+
+SEARCH: O(logN) average; O(N) worst
+We begin by examining the root node. If the tree is null, the key we are searching for does not exist in the tree.
+Otherwise, if the key equals that of the root, the search is successful and we return the node.
+If the key is less than that of the root, we search the left subtree.
+Similarly, if the key is greater than that of the root, we search the right subtree.
+This process is repeated until the key is found or the remaining subtree is null.
+
+INSERT:   O(logN) average; O(N) worst (when inputs done in-order)
+- SEARCH; then append to Left or Right depending on comparison with ROOT value
+
+BUILD:  O(Nexp2) worst for N elements inserted
+
+DELETE:   O(logN) average; O(N) worst
+- SEARCH; then remove
+1) Deleting a node with no children: simply remove the node from the tree.
+2) Deleting a node with one child: remove the node and replace it with its child.
+3) Deleting a node with two children
+
+SORT/INORDER TRAVERSAL:  O(N) average, AND worst
+
+def traverse_binary_tree(node, operate_on_root):
+    if node is None:
+        return
+    traverse_binary_tree(node.leftChild, operate_on_root)
+    operate_on_root(node.value)
+    traverse_binary_tree(node.rightChild, operate_on_root)
